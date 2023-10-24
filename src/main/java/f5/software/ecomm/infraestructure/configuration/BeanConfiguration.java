@@ -1,13 +1,13 @@
 package f5.software.ecomm.infraestructure.configuration;
 
-import f5.software.ecomm.appication.repository.ProductRepository;
-import f5.software.ecomm.appication.repository.StockRepository;
-import f5.software.ecomm.appication.service.ProductService;
-import f5.software.ecomm.appication.service.StockService;
-import f5.software.ecomm.appication.service.UploadFile;
-import f5.software.ecomm.appication.service.ValidateStock;
+import f5.software.ecomm.appication.repository.*;
+import f5.software.ecomm.appication.service.*;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
 public class BeanConfiguration {
@@ -30,6 +30,30 @@ public class BeanConfiguration {
     @Bean
     public ValidateStock validator(StockService service){
         return new ValidateStock(service);
+    }
+
+    @Bean
+    public OrderService orderService(OrderRepository repository){
+        return new OrderService(repository);
+    };
+
+    @Bean
+    public OrderProductService opService(OrderProductRepository repository){
+        return new OrderProductService(repository);
+    }
+
+    @Bean
+    @Scope(
+            value = WebApplicationContext.SCOPE_SESSION,
+            proxyMode = ScopedProxyMode.TARGET_CLASS
+    )
+    public CarService carService(){
+        return new CarService();
+    }
+
+    @Bean
+    public UserService userService(UserRepository repository){
+        return new UserService(repository);
     }
 
 }

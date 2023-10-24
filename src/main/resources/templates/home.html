@@ -24,7 +24,7 @@
 <body>
 
 <!-- HEADER -->
-
+<div th:insert="~{user/template_user.html::header}"></div>
 <!-- Page Content -->
 <div class="container">
 
@@ -37,49 +37,14 @@
   <!-- Page Features -->
   <div class="row text-center">
 
-    <div class="col-lg-3 col-md-6 mb-4">
+    <div class="col-lg-3 col-md-6 mb-4" th:each="product:${list}">
       <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+        <img class="card-img-top" th:src="@{/images/{img} (img=${product.image} )}" th:alt="${product.name}">
         <div class="card-body">
-          <p class="card-text">Nombre del producto.</p>
+          <p class="card-text" th:text="${product.name}"></p>
         </div>
         <div class="card-footer">
-          <a href="productohome.html" class="btn btn-success">Ver producto</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-        <div class="card-body">
-          <p class="card-text">Nombre del producto.</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-success">Ver producto</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-        <div class="card-body">
-          <p class="card-text">Nombre del producto.</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-success">Ver producto</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card h-100">
-        <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-        <div class="card-body">
-          <p class="card-text">Nombre del producto.</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-success">Ver producto</a>
+          <a th:href="@{/home/detalle/{id} (id=${product.id})}" class="btn btn-success">Ver producto</a>
         </div>
       </div>
     </div>
@@ -88,7 +53,7 @@
 </div>
 
 <!-- FOOTER -->
-
+<div th:insert="~{user/template_user.html::footer}"></div>
 
 <!-- Bootstrap core JavaScript -->
 <script th:src="@{vendor/jquery/jquery.min.js}"></script>
